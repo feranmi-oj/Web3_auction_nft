@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}{{ block.super }} Make An Offer {% endblock head_title %}
+
+{% block content %}
+ <style>
+        :root {
+      --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+    }
+
+
+
+    .card {
+      background: linear-gradient(#6699cc, white);!important;
+      border: 1px solid #6699cc;
+      color: rgba(250, 250, 250, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      border: 5px solid;
+      border-image-slice: 1;
+      background: #222 !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      border-image-source:  linear-gradient(#6699cc, white);!important;
+      text-decoration: none;
+      transition: all .4s ease;
+    }
+
+    .btn:hover, .btn:focus {
+          background: linear-gradient(#6699cc, white);!important;
+      -webkit-background-clip: none !important;
+      -webkit-text-fill-color: linear-gradient(#6699cc, white);!important;
+      border: 5px solid #fff !important;
+      box-shadow: #222 1px 0 10px;
+      text-decoration: underline;
+    }
+    .responsive {
+      width: 100%;
+      height: auto;
+    }
+
+
+    </style>
+    <div class="w3-container " style="padding:128px 16px" align="center">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                {% if user.is_authenticated %}
+                <h1> Make An Offer Here !</h1>
+                <form  method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-info" value="Offer Now">
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-outline-secondary" href="/show_section/{{ artwork.get_id}}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+        </svg>
+    </a>
+{% endblock content %}

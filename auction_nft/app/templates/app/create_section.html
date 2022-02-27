@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% load static%}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/log.css'%}">
+    <div class="wrapper fadeInDown" >
+        <div id="formContent">
+                <h2>CREATE ARTWORK (NFT)</h2>
+                <br>
+                <form method="POST" enctype="multipart/form-data" style="max-width:100%">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <br>
+                    <input type="submit" class="btn btn-info" value="Create">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
