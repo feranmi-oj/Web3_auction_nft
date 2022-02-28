@@ -9,46 +9,46 @@
     <br>
     <br>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
- <style>
-        :root {
-      --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
-    }
+    <style>
+            :root {
+          --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+        }
 
 
 
-    .card {
-      background: linear-gradient(#6699cc, white);!important;
-      border: 1px solid #6699cc;
-      color: rgba(250, 250, 250, 0.8);
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      border: 5px solid;
-      border-image-slice: 1;
-      background: #222 !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      border-image-source:  linear-gradient(#6699cc, white);!important;
-      text-decoration: none;
-      transition: all .4s ease;
-    }
-
-    .btn:hover, .btn:focus {
+        .card {
           background: linear-gradient(#6699cc, white);!important;
-      -webkit-background-clip: none !important;
-      -webkit-text-fill-color: linear-gradient(#6699cc, white);!important;
-      border: 5px solid #fff !important;
-      box-shadow: #222 1px 0 10px;
-      text-decoration: underline;
-    }
-    .responsive {
-      width: 100%;
-      height: auto;
-    }
+          border: 1px solid #6699cc;
+          color: rgba(250, 250, 250, 0.8);
+          margin-bottom: 2rem;
+        }
+
+        .btn {
+          border: 5px solid;
+          border-image-slice: 1;
+          background: #222 !important;
+          -webkit-background-clip: text !important;
+          -webkit-text-fill-color: transparent !important;
+          border-image-source:  linear-gradient(#6699cc, white);!important;
+          text-decoration: none;
+          transition: all .4s ease;
+        }
+
+        .btn:hover, .btn:focus {
+              background: linear-gradient(#6699cc, white);!important;
+          -webkit-background-clip: none !important;
+          -webkit-text-fill-color: linear-gradient(#6699cc, white);!important;
+          border: 5px solid #fff !important;
+          box-shadow: #222 1px 0 10px;
+          text-decoration: underline;
+        }
+        .responsive {
+          width: 100%;
+          height: auto;
+        }
 
 
-    </style>
+        </style>
     <div class="col d-flex justify-content-center">
         <div class="card mb-3" style="max-width: 1000px;">
             <div class="row no-gutters">
@@ -121,33 +121,33 @@
 
     <script>
 
-const eventBox = document.getElementById('event-box')
-const countdownBox = document.getElementById('countdown-box')
+        const eventBox = document.getElementById('event-box')
+        const countdownBox = document.getElementById('countdown-box')
 
-//console.log(eventBox.textContent)
-const eventDate = Date.parse(eventBox.textContent)
-console.log(eventDate)
+        //console.log(eventBox.textContent)
+        const eventDate = Date.parse(eventBox.textContent)
+        console.log(eventDate)
 
-const myCountdown = setInterval(()=>{
-    const now = new Date().getTime()
-    //console.log(now)
+        const myCountdown = setInterval(()=>{
+            const now = new Date().getTime()
+            //console.log(now)
 
-    const diff = eventDate - now
-    //console.log(diff)
+            const diff = eventDate - now
+            //console.log(diff)
 
-    const d = Math.floor(eventDate/ (1000 * 60 * 60 * 24) - (now / (1000 * 60 * 60 * 24) ))
-    const h = Math.floor((eventDate/ (1000 * 60 * 60 ) - (now / (1000 * 60 * 60 ) ))%24)
-    const m = Math.floor((eventDate/ (1000 * 60 ) - (now / (1000 * 60) ))%60)
-    const s = Math.floor((eventDate/ (1000) - (now / (1000) ))%60)
+            const d = Math.floor(eventDate/ (1000 * 60 * 60 * 24) - (now / (1000 * 60 * 60 * 24) ))
+            const h = Math.floor((eventDate/ (1000 * 60 * 60 ) - (now / (1000 * 60 * 60 ) ))%24)
+            const m = Math.floor((eventDate/ (1000 * 60 ) - (now / (1000 * 60) ))%60)
+            const s = Math.floor((eventDate/ (1000) - (now / (1000) ))%60)
 
-    if (diff>0){
-    countdownBox.innerHTML = d + 'days,' + h + 'hours,' +m+ 'minutes' + s +'seconds'
-    } else{
-        clearInterval(myCountdown)
-        countdownBox.innerHTML =" countdown completed"
-    }
-},1000)
-</script>
+            if (diff>0){
+            countdownBox.innerHTML = d + 'days,' + h + 'hours,' +m+ 'minutes' + s +'seconds'
+            } else{
+                clearInterval(myCountdown)
+                countdownBox.innerHTML =" countdown completed"
+            }
+        },1000)
+    </script>
 
 
 {% endblock content %}

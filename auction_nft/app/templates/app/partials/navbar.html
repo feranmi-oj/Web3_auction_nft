@@ -4,21 +4,22 @@
     <a href="{%url 'app:home'%}" class="w3-bar-item w3-button w3-wide">AUCTION OF WORK OF ART NFT</a>
 
     {% if user.is_authenticated %}
-    <div class="w3-right w3-hide-small">
+      <div class="w3-right w3-hide-small">
 
-      <a href="{%url 'app:home_auction'%}" class="w3-bar-item w3-button"> HOME</a>
-      {%if user.is_superuser%}
-      <a href="{%url 'app:create_section'%}" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> CREATE SECTION</a>
-      <a href="{%url 'app:convert_dollar'%}" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> GET FEROTOKEN</a>
-      {%endif%}
-      <a href="{%url 'accounts:profile' user.pk %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> {{user.username}}</a>
-      <a href="{% url 'accounts:logout'%}" class="w3-bar-item w3-button"><i class="fa fa-toggle-off"></i> LOGOUT</a></div>
+        <a href="{%url 'app:home_auction'%}" class="w3-bar-item w3-button"> HOME</a>
+        {%if user.is_superuser%}
+          <a href="{%url 'app:create_section'%}" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> CREATE SECTION</a>
+        {%endif%}
+        <a href="{%url 'app:convert_dollar'%}" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> GET FEROTOKEN</a>
+        <a href="{%url 'accounts:profile' user.pk %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> {{user.username}}</a>
+        <a href="{% url 'accounts:logout'%}" class="w3-bar-item w3-button"><i class="fa fa-toggle-off"></i> LOGOUT</a>
+      </div>
     {%else%}
-    <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button"> ABOUT</a>
-      <a class="w3-bar-item w3-button" href="{% url 'accounts:login'%}"><i class="fa fa-toggle-on"></i>Login</a>
-      <a class="w3-bar-item w3-button" href="{% url 'accounts:register'%}"><i class="fa fa-pencil"></i>Registration</a>
-    </div>
+      <div class="w3-right w3-hide-small">
+        <a href="#about" class="w3-bar-item w3-button"> ABOUT</a>
+        <a class="w3-bar-item w3-button" href="{% url 'accounts:login'%}"><i class="fa fa-toggle-on"></i>Login</a>
+        <a class="w3-bar-item w3-button" href="{% url 'accounts:register'%}"><i class="fa fa-pencil"></i>Registration</a>
+      </div>
     {%endif%}
   </div>
 </div>
