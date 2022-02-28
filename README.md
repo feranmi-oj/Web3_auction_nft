@@ -17,3 +17,33 @@ At the end of an auction, the database will receive and save all information abo
 To be able to see the platform you need to: 
 - download the code and open it in a development environment
 - then open a virtual environment and thanks to the requirements.txt file you can install all the necessary packages for the project
+
+### Start the project
+
+- Before starting the runserver  in the terminal you need to do a first migration with:
+```sh
+    $ python manage.py migrate
+ ```
+    
+* And create a superuser with: 
+```sh
+    $ python manage.py createsuperuser
+ ```
+- **Example Superuser**
+ 
+    username: admin 
+    
+     password: admin
+
+
+- Then, start the project by typing:
+```sh
+    $ python manage.py runserver 
+```
+- Once the server is started, we enter the registration page
+  and start registering from the third address of your ganache 
+  because the first two are used for tokens
+
+- When you have the address, copy the private key of the address and go to your Metamask wallet. 
+  Once there, attach the private key to import the account. 
+  Now you can open the site and register with the same Ganache address you chose.
