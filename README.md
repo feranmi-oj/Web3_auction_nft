@@ -10,4 +10,5 @@ there are two pages for user registration and login. The platform provides each 
 
 Within the platform only the administrator can create the NFT artwork.
 
-To start bidding on artwork, any user can convert dollars into FeroToken. 10 $ equals 1 Ferotoken
+To start bidding on artwork, any user can convert dollars into FeroToken. 10 $ equals 1 Ferotoken.
+At the end of an auction, the database will receive and save all information about the auction and the winner.
