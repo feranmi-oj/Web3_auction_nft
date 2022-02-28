@@ -12,3 +12,8 @@ Within the platform only the administrator can create the NFT artwork.
 
 To start bidding on artwork, any user can convert dollars into FeroToken. 10 $ equals 1 Ferotoken.
 At the end of an auction, the database will receive and save all information about the auction and the winner.
+
+### Installation:
+To be able to see the platform you need to: 
+- download the code and open it in a development environment
+- then open a virtual environment and thanks to the requirements.txt file you can install all the necessary packages for the project
