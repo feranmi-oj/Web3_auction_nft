@@ -56,4 +56,4 @@ To be able to see the platform you need to:
 * HTML/CSS
 * Ganache
 * Remix
-* IPFS Desktop for url artwork
+* IPFS Desktop for url artwork 
