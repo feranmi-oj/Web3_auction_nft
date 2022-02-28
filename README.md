@@ -47,3 +47,13 @@ To be able to see the platform you need to:
 - When you have the address, copy the private key of the address and go to your Metamask wallet. 
   Once there, attach the private key to import the account. 
   Now you can open the site and register with the same Ganache address you chose.
+  
+## Built with:🔗
+* Python
+* Django
+* Web3
+* MongoDB
+* HTML/CSS
+* Ganache
+* Remix
+* IPFS Desktop for url artwork
