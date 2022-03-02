@@ -16,15 +16,15 @@ Including another URLconf
 
 from django.urls import path
 from . import views
-app_name = 'app'
+
+app_name = "app"
 
 urlpatterns = [
-    path('', views.home_page_view, name='home'),
-    path('make_an_offer/<str:pk>', views.make_offer_view, name='make_an_offer'),
-    path('home_auction/', views.home_auction_view, name='home_auction'),
-    path('create_section/', views.create_artwork , name='create_section'),
-    path('convert_dollar/', views.conversion_dollar_view, name='convert_dollar'),
-    path('show_section/<str:pk>', views.show_artwork, name='show_section'),
-    path('buy_now/', views.buy_now, name='buy_now'),
-
+    path("", views.home_page_view, name="home"),
+    path("make_an_offer/<str:pk>", views.make_offer_view, name="make_an_offer"),
+    path("home_auction/", views.home_auction_view, name="home_auction"),
+    path("create_section/", views.create_artwork, name="create_section"),
+    path("convert_dollar/", views.conversion_dollar_view, name="convert_dollar"),
+    path("show_section/<str:pk>", views.show_artwork, name="show_section"),
+    path("buy_now/", views.buy_now, name="buy_now"),
 ]
