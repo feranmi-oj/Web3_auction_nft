@@ -20,7 +20,7 @@ class Conversion(forms.Form):
                 raise forms.ValidationError('')  # display messages.error instead
             return cleaned_data
 
-class MakeAnOffer(forms.Form):
+class Make_an_offer(forms.Form):
     offer = forms.FloatField(label='offer($)', widget=forms.TextInput(attrs={'class': 'white-text'}))
 
     def clean(self):

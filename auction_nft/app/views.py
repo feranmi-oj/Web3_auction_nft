@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Profile, Artwork
 from django.contrib import messages
-from .forms import NFT, Conversion,MakeAnOffer
+from .forms import NFT, Conversion,Make_an_offer
 import json
 from web3 import Web3
 from datetime import datetime
@@ -25,15 +25,15 @@ mydb = myclient["Artwork__Project__Web3"]
 
 # ArtworkToken ERC721
 
-contractAddress = w3.toChecksumAddress('0x07c889184627Dfa25BDD2d6F004ef310ED6241B5')
+contract_address721 = w3.toChecksumAddress('0x07c889184627Dfa25BDD2d6F004ef310ED6241B5')
 abi = json.loads('''[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"string","name":"","type":"string"}],"name":"AlreadyExist","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_artist","type":"address"},{"internalType":"string","name":"tokenUri","type":"string"},{"internalType":"string","name":"name_","type":"string"},{"internalType":"string","name":"symbol_","type":"string"}],"name":"Mintable","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"}],"name":"_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"artist","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"owning","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"uriDeployed","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}]''')
-contract721 = w3.eth.contract(address=contractAddress, abi=abi, )
+contract721 = w3.eth.contract(address=contract_address721, abi=abi, )
 
 
 #Contract Token ERC20
-contractAddress20 = w3.toChecksumAddress('0x470b6Ed89912A2528B2fd0d0715e0E265470e744')
+contract_address20 = w3.toChecksumAddress('0x470b6Ed89912A2528B2fd0d0715e0E265470e744')
 abi20 = json.loads('''[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]''')
-contract20 = w3.eth.contract(address=contractAddress20, abi=abi20)
+contract20 = w3.eth.contract(address=contract_address20, abi=abi20)
 
 
 
@@ -43,7 +43,7 @@ def home_page_view(request):
 
 
 #We are creating our NFT
-def createArtwork(request):
+def create_artwork(request):
     profile = Profile.objects.get(user=request.user)
     if request.method == 'POST':
         form = NFT(request.POST, request.FILES)
@@ -113,7 +113,7 @@ def show_artwork(request, pk):
     if artwork.ending_auction.replace(tzinfo=utc) < datetime.today().replace(tzinfo=utc):
         if artwork.buyer!= None:
             winnerAuction = {
-                'Item Name': Artwork.name,
+                'Item Name': artwork.name,
                 'Artwork Uri': artwork.artwork_uri,
                 'Item Hash': artwork.item_hash,
                 'Creator': artwork.artist_address,
@@ -156,7 +156,7 @@ def make_offer_view(request,pk):
     artwork = Artwork.objects.filter(_id=ObjectId(pk)).first()
 
     if request.method == 'POST':
-        form = MakeAnOffer(request.POST)
+        form = Make_an_offer(request.POST)
         if form.is_valid():
             offer = form.cleaned_data.get('offer')
 
@@ -211,19 +211,18 @@ def make_offer_view(request,pk):
                     return redirect(f'/make_an_offer/{artwork.pk}')
 
     else:
-        form = MakeAnOffer()
+        form = Make_an_offer()
     return render(request, 'app/make_an_offer.html', {'form': form,'artwork': artwork})
 
 def conversion_dollar_view(request):
     profile = Profile.objects.get(user=request.user)
-    contractName = contract20.functions.name().call()
-    contractSymbol = contract20.functions.symbol().call()
+    contract_name = contract20.functions.name().call()
+    contract_symbol = contract20.functions.symbol().call()
     f=contract20.functions.balanceOf(Faucet).call()
-    faucetBalance = w3.fromWei(f, 'ether')
+    faucet_balance = w3.fromWei(f, 'ether')
     t=contract20.functions.totalSupply().call()
-    totalSupply = w3.fromWei(t, 'ether')
+    total_supply = w3.fromWei(t, 'ether')
 
-    RecipientBalance = contract20.functions.balanceOf(Recipient).call()
 
     if request.method == 'POST':
         form = Conversion(request.POST)
@@ -260,13 +259,13 @@ def conversion_dollar_view(request):
             form = Conversion()
     context = {
         'form': form,
-        'contractName': contractName,
-        'contractSymbol': contractSymbol,
-        'faucetBalance':faucetBalance,
-        'totalSupply':totalSupply ,
+        'contract_name': contract_name,
+        'contract_symbol': contract_symbol,
+        'faucet_balance':faucet_balance,
+        'total_supply':total_supply ,
         'faucet': Faucet,
-        'contractAddress': contractAddress,
-        'RecipientBalance': RecipientBalance
+        'contract_address20': contract_address20,
+
     }
     return render(request, 'app/convert_dollar.html',context)
 
