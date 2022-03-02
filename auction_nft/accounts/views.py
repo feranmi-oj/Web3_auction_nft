@@ -18,9 +18,9 @@ Faucet = w3.eth.defaultAccount
 
 
 #Contract for Token ERC20 is already deployed from remix
-contractAddress20 = w3.toChecksumAddress('0x470b6Ed89912A2528B2fd0d0715e0E265470e744')
+contract_address20 = w3.toChecksumAddress('0x470b6Ed89912A2528B2fd0d0715e0E265470e744')
 abi20 = json.loads('''[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]''')
-contract = w3.eth.contract(address=contractAddress20, abi=abi20)
+contract = w3.eth.contract(address=contract_address20, abi=abi20)
 
 print(contract.functions.name().call())
 
@@ -29,7 +29,7 @@ def ip_control_view(request):
     return render(request, 'accounts/ip_control.html', )
 
 
-def getIpAdd(request):
+def get_ip_add(request):
     try:
         x_forward = request.META.get("HTTP_X_FORWARDED_FOR")
         if x_forward:
@@ -42,7 +42,7 @@ def getIpAdd(request):
 
 
 def login_view(request):
-    ip_address = getIpAdd(request)
+    ip_address = get_ip_add(request)
     initial_data = {
         'ip_address': ip_address,
     }
@@ -61,7 +61,7 @@ def login_view(request):
                 user_info.last_login = timezone.now()
             user_info.save()
 
-            ip_address = getIpAdd(request)
+            ip_address = get_ip_add(request)
 
             if ip_address != user_info.ip_address:
                 user_info.ip_address = ip_address
@@ -93,13 +93,13 @@ def register_view(request):
 
             newUser = Profile(user=user)
             tx = contract.functions.transfer(address,10000000000000000000).transact({'from': Faucet})
-            addressBalance = contract.functions.balanceOf(address).call()
-            tBalance = w3.fromWei(addressBalance, 'ether')
+            address_balance = contract.functions.balanceOf(address).call()
+            t_balance = w3.fromWei(address_balance, 'ether')
             newUser.dollar_amount= int(random.uniform(1000, 2000))
-            newUser.ip_address=getIpAdd(request)
+            newUser.ip_address=get_ip_add(request)
             newUser.last_login=timezone.now()
             newUser.address_g=address
-            newUser.token_amount=tBalance
+            newUser.token_amount=t_balance
             newUser.save()
 
 
