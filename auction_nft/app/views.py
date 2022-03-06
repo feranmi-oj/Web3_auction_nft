@@ -217,7 +217,7 @@ def make_offer_view(request, pk):
                         artwork.artist_address, w3.toWei(offer, "ether")
                     ).transact({"from": profile.address_g})
 
-                    artwork.token_offer = offer
+                    artwork.token_offer =  w3.toWei(offer, "ether")
                     artwork.buyer = profile
                     artwork.save()
                     profile.save()
