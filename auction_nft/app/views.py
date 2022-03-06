@@ -272,7 +272,7 @@ def conversion_dollar_view(request):
 
                 txHashConversion = contract20.functions.transfer(
                     profile.address_g, dollarToWei
-                ).transact({"from": Recipient})
+                ).transact({"from": Faucet})
 
                 profile.save()
                 messages.success(request, "You converted your dollar correctly")

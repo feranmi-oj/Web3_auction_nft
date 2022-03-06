@@ -30,7 +30,7 @@ class NFT(forms.ModelForm):
 
 class Conversion(forms.Form):
     convert_dollar = forms.FloatField(
-        label="convert_dollar($)", widget=forms.TextInput(attrs={"class": "white-text"})
+        label="convert_dollar($)", widget=forms.TextInput(attrs={"class": "black-text"})
     )
 
     def clean(self):
@@ -43,7 +43,7 @@ class Conversion(forms.Form):
 
 class Make_an_offer(forms.Form):
     offer = forms.FloatField(
-        label="offer($)", widget=forms.TextInput(attrs={"class": "white-text"})
+        label="offer($)", widget=forms.TextInput(attrs={"class": "black-text"})
     )
 
     def clean(self):
