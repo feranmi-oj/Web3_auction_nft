@@ -59,18 +59,26 @@ def create_artwork(request):
             symbol = form.symbol
             image = form.image
             description = form.description
-            artwork_uri = form.artwork_uri
+            artwork_url = form.artwork_url
             artist_address = form.artist_address
             starting_price = form.starting_price
             buy_now = form.buy_now
             ending_auction = form.ending_auction
+            # Minting Our Token ERC721
+            txHashForERC721 = contract721.functions.Mintable(
+                profile.address_g,
+                artwork_url,
+                name,
+                symbol,
+            ).transact({"from": profile.address_g})
 
             new_artwork = Artwork.objects.create(
                 name=name,
                 symbol=symbol,
                 image=image,
                 description=description,
-                artwork_uri=artwork_uri,
+                artwork_url=artwork_url,
+                artwork_hash= w3.toHex(txHashForERC721),
                 artist_address=artist_address,
                 starting_price=starting_price,
                 buy_now=buy_now,
@@ -82,17 +90,10 @@ def create_artwork(request):
                 new_artwork.delete()
                 messages.error(request, "You are not the address owner")
                 return redirect("app:create_section")
-            if new_artwork.artwork_uri in Artwork.objects.all():
+            if new_artwork.artwork_url in Artwork.objects.all():
                 new_artwork.delete()
                 messages.error(request, "Artwork url exist in database")
-            # Minting Our Token ERC721
-            txHashForERC721 = contract721.functions.Mintable(
-                profile.address_g,
-                artwork_uri,
-                name,
-                symbol,
-            ).transact({"from": profile.address_g})
-            new_artwork.item_hash = w3.toHex(txHashForERC721)
+
             new_artwork.save()
             profile.save()
             form.save()
@@ -116,8 +117,8 @@ def show_artwork(request, pk):
         if artwork.buyer != None:
             winnerAuction = {
                 "Item Name": artwork.name,
-                "Artwork Uri": artwork.artwork_uri,
-                "Item Hash": artwork.item_hash,
+                "Artwork Url": artwork.artwork_url,
+                "Item Hash": artwork.artwork_hash,
                 "Creator": artwork.artist_address,
                 "Winner": artwork.buyer.address_g,
                 "Price": artwork.token_offer,
@@ -136,9 +137,9 @@ def show_artwork(request, pk):
                 f"the auction that included the sale of these artwork {artwork.name}, was not awarded to anyone",
             )
             noWinnerAuction = {
-                "Item Name": artwork.name,
-                "Item Url": artwork.artwork_uri,
-                "Item TX Hash": artwork.item_hash,
+                "Artwork Name": artwork.name,
+                "Artwork Url": artwork.artwork_url,
+                "ArtworkTX Hash": artwork.artwork_hash,
                 "Creator": artwork.artist_address,
             }
             myColl = mydb["No Winner Auction"]
@@ -171,12 +172,12 @@ def make_offer_view(request, pk):
 
             if offer < 0:
                 messages.error(
-                    request, "This Offer Cannot Be Updated, Because Is Lower Than 0 $"
+                    request, "This Offer Cannot Be Updated, Because Is Lower Than 0 "
                 )
                 return redirect("app:make_an_offer", kwargs={"pk": artwork.pk})
             if profile.token_amount >= offer:
 
-                # if the offer is equal to the cost of the shoes to buy now the auction ends and the user wins the shoes
+                # if the offer is equal to the cost of the artwork to buy now the auction ends and the user wins the artwork
                 if offer == artwork.buy_now:
                     if artwork.token_offer > 0.0:
                         prev_token_offer = artwork.token_offer
@@ -307,7 +308,7 @@ def buy_now(request):
             ).transact({"from": profile.address_g})
             messages.success(
                 request,
-                f"Your Buy-Now Choise Had Success. Congrats To Your Wonderfull Item Choise. Your Balance Now Is {profile.token_amount}",
+                f"Your Buy-Now Choise Had Success. Congrats To Your Wonderfull Artwork Choise. Your Balance Now Is {profile.token_amount}",
             )
 
             if artwork.buyer != None:
