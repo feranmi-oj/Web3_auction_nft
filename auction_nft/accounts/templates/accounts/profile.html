@@ -46,6 +46,9 @@
       width: 100%;
       height: auto;
     }
+    [hidden]{
+        display:hidden;
+    }
 
 
     </style>
@@ -108,22 +111,31 @@
                         <div class="card-action center-align flow-text white-text">
                             <h4 class=" text:center color:white"><strong>MY WALLET</strong></h4>
                         </div>
-                        <table class=" table table-dark " >
-                            <thead>
-                                <tr class="white-text flow-text">
-                                    <th>Your Address</th>
-                                    <th>FeroToken</th>
-                                    <th>Dollars available</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{profile_pocket.address_g}} </td>
-                                    <td>{{ profile_pocket.token_amount|floatformat:2 }} ether</td>
-                                    <td>{{ profile_pocket.dollar_amount|floatformat:2 }} $</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <main class="p-10 flex justify-center">
+                            <button id="connect_button">
+                                Connect Wallet
+                            </button>
+
+                                <table class=" table table-dark " >
+                                    <thead>
+                                        <tr class="white-text flow-text">
+                                            <th>Your Address</th>
+                                            <th>ETH</th>
+                                            <th>FeroToken</th>
+                                            <th>Dollars available</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="wallet_address"></td>
+                                            <td id="wallet_balance"> ether</td>
+                                            <td>{{ profile_pocket.token_amount}}</td>
+                                            <td>{{ profile_pocket.dollar_amount|floatformat:2 }} $</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                        </main>
                     </div>
                 </div>
             </div>
@@ -173,6 +185,35 @@
             </div>
         </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js"></script>
+    <script >
+
+        const getWeb3 = async () => {
+            return new Promise(async (resolve, reject) => {
+                const web3 = new Web3(window.ethereum)
+
+                try {
+                    await window.ethereum.request({ method: "eth_requestAccounts" })
+                    resolve(web3)
+                } catch (error) {
+                    reject(error)
+                }
+            })
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("connect_button").addEventListener("click", async () => {
+                const web3 = await getWeb3()
+                const walletAddress = await web3.eth.requestAccounts()
+                const walletBalanceInWei = await web3.eth.getBalance(walletAddress[0])
+                const walletBalanceInEth = Math.round(web3.utils.fromWei(walletBalanceInWei) * 1000) / 1000
+
+                document.getElementById("wallet_address").innerText = walletAddress
+                document.getElementById("wallet_balance").innerText = walletBalanceInEth
+
+            })
+        })
+    </script>
 
 
 {% endblock %}
