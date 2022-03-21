@@ -333,7 +333,7 @@ def buy_now(request):
                 f"Your Buy-Now Choise Had Success. Congrats To Your Wonderfull Artwork Choise. Your Balance Now Is {profile.token_amount}",
             )
 
-            # Tranfer Artwork NFT
+            # Transfer Artwork NFT
             contract1155.functions.safeTransferFrom(
                 Recipient, profile.address_g, contract1155.functions.idmap(artwork.artwork_url).call(), 1, "")
 
