@@ -48,6 +48,9 @@ To be able to see the platform you need to:
   Once there, attach the private key to import the account. 
   Now you can open the site and register with the same Ganache address you chose.
   
+- Once registered, the platform will send you to your profile page 
+  where there is a button where you can connect with your metamask 
+  and view your wallet
 ## Built with:🔗
 * Python
 * Django
