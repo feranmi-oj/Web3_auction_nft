@@ -127,7 +127,7 @@ def show_artwork(request, pk):
                 artwork.buyer.address_g,
                 contract1155.functions.idmap(artwork.artwork_url).call(),
                 1,
-                "",
+                "0x00",
             )
 
             winnerAuction = {
@@ -207,13 +207,13 @@ def make_offer_view(request, pk):
                         artwork.artist_address, w3.toWei(offer, "ether")
                     ).transact({"from": profile.address_g})
 
-                    # Tranfer Artwork NFT
+                    # Transfer Artwork NFT
                     contract1155.functions.safeTransferFrom(
                         Recipient,
                         profile.address_g,
                         contract1155.functions.idmap(artwork.artwork_url).call(),
                         1,
-                        "",
+                        "0x00",
                     )
 
                     artwork.buyer = profile
@@ -351,7 +351,7 @@ def buy_now(request):
                 profile.address_g,
                 contract1155.functions.idmap(artwork.artwork_url).call(),
                 1,
-                "",
+                "0x00",
             )
 
             artwork.token_offer = buy_now

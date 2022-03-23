@@ -139,7 +139,7 @@ def profile(request, id):
     profile_pocket = Profile.objects.get(user=request.user)
     ferotoken_balance = contract20.functions.balanceOf(profile_pocket.address_g).call()
     profile_pocket.token_amount = w3.fromWei(ferotoken_balance, "ether")
-    all_nft= contract1155.functions.getAllTokens(profile_pocket.address_g).call()
+    all_nft= len(contract1155.functions.getAllTokens(profile_pocket.address_g).call())
     profile_pocket.save()
     artwork = Artwork.objects.filter(buyer=profile).order_by("-ending_auction")
 
@@ -150,7 +150,7 @@ def profile(request, id):
             "profile": profile,
             "profile_pocket": profile_pocket,
             "artwork": artwork,
-            "all_nft": all_nft,
+            'all_nft': all_nft,
         },
     )
 
