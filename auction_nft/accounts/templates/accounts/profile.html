@@ -111,16 +111,17 @@
                         <div class="card-action center-align flow-text white-text">
                             <h4 class=" text:center color:white"><strong>MY WALLET</strong></h4>
                         </div>
-                        <main class="p-10 flex justify-center">
-                            <button id="connect_button">
-                                Connect Wallet
+                        <main class="p-10 flex justify-center text-center">
+                            <button id="connect_button" class="btn btn-outline-dark">
+                                Connect Metamask
                             </button>
-
+                            <br>
+                            <br>
                                 <table class=" table table-dark " >
                                     <thead>
                                         <tr class="white-text flow-text">
                                             <th>Your Address</th>
-                                            <th>ETH</th>
+                                            <th>BALANCE ETH</th>
                                             <th>FeroToken</th>
                                             <th>Dollars available</th>
                                         </tr>
@@ -214,9 +215,6 @@
                 const tokenInst = new web3.eth.Contract(tokenABI, tokenAddress)
                 let balance = await tokenInst.methods.balanceOf(walletAddress[0]).call()
                 let balanceEth = web3.utils.fromWei(balance, 'ether')
-
-
-
 
                 document.getElementById("wallet_address").innerText = walletAddress
                 document.getElementById("wallet_balance").innerText = walletBalanceInEth
